@@ -1,9 +1,4 @@
-﻿using People.Models;
-using SQLite;
-
-
-namespace People;
-
+﻿namespace People;
 
 public class PersonRepository
 {
@@ -11,21 +6,11 @@ public class PersonRepository
 
     public string StatusMessage { get; set; }
 
-     
-    private static SQLiteAsyncConnection conn;
+    // TODO: Add variable for the SQLite connection
 
-    private async Task  Init()
+    private void Init()
     {
-
-        if (conn != null)
-            return;
-
-        conn = new SQLiteAsyncConnection(_dbPath);
-
-        await conn.CreateTableAsync<Person>();
-
-        
-        
+        // TODO: Add code to initialize the repository         
     }
 
     public PersonRepository(string dbPath)
@@ -33,19 +18,19 @@ public class PersonRepository
         _dbPath = dbPath;                        
     }
 
-    public async Task AddNewPerson(string name)
+    public void AddNewPerson(string name)
     {            
-        ArgumentNullException.ThrowIfNull(name, nameof(name));
         int result = 0;
-
         try
         {
-            
-            await Init();
-            
+            // TODO: Call Init()
 
-            
-            result = await conn.InsertAsync(new Person { Name = name});
+            // basic validation to ensure a name was entered
+            if (string.IsNullOrEmpty(name))
+                throw new Exception("Valid name required");
+
+            // TODO: Insert the new person into the database
+            result = 0;
 
             StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, name);
         }
@@ -56,14 +41,12 @@ public class PersonRepository
 
     }
 
-    public async Task<List<Person>> GetAllPeople()
+    public List<Person> GetAllPeople()
     {
-        
+        // TODO: Init then retrieve a list of Person objects from the database into a list
         try
         {
-           await Init ();
-            return await conn.Table<Person>().ToListAsync();
-
+            
         }
         catch (Exception ex)
         {

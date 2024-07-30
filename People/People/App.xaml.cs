@@ -1,20 +1,16 @@
-﻿//
-
-namespace People;
+﻿namespace People;
 
 public partial class App : Application
 {
-    public static PersonRepository PersonRepo { get; private set; }
+    // TODO: Add a public static PersonRepository property
 
-
-    public App(PersonRepository repo)
+    public App()
 	{
 		InitializeComponent();
 
 		MainPage = new AppShell();
 
-        PersonRepo = repo;
-
+        // TODO: Initialize the PersonRepository property with the PersonRespository singleton object
 
     }
 }
